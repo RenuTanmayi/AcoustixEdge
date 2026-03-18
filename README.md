@@ -1,50 +1,34 @@
-Acoustix-Edge Compass
-Real-Time Sound Detection and Direction for the Hearing Impaired
-Acoustix-Edge is a wearable AI system designed to help hearing-impaired individuals stay safe. It listens for 13 specific sounds (like sirens and horns) and tells the user both what the sound is and where it is coming from (Left, Right, or Middle).
+# Acoustix-Edge Compass: Real-Time Acoustic Localization
 
-Project Overview
-Hardware Target: Raspberry Pi 5 (optimized for edge computing).
+An Edge-AI system designed for the hearing impaired to classify and localize safety-critical sounds in real-time. This project implements a high-accuracy ensemble of lightweight convolutional neural networks optimized for deployment on **Raspberry Pi 5**.
 
-Current Performance: 89% Accuracy across 13 categories.
+## 🚀 Key Features
+* **Joint Classification & Localization:** Detects 13 distinct categories including emergency sirens and vehicle horns with directional labels (Left, Right, Middle).
+* **Edge-Optimized Ensemble:** Combines **EfficientNet-Lite0**, **MobileNetV3**, and **GhostNet** to achieve robust predictions.
+* **High Performance:** Achieved **89.0% Accuracy** on a 13-class spatial acoustic dataset (approx. 11x improvement over random baseline).
+* **Privacy-First:** Designed for local inference where audio data is processed entirely on the edge device.
 
-Privacy: All audio processing happens locally on the device; no data is ever uploaded or stored.
+## 🧠 Technical Implementation
+The project leverages the `timm` (PyTorch Image Models) library to ensemble three state-of-the-art architectures. By using a **Soft-Voting Ensemble**, the system reduces variance and improves reliability in noisy urban environments.
 
-How it Works
-The system uses an Ensemble approach, which means it asks three different specialized AI models to "vote" on a sound to ensure the highest possible reliability.
+* **Input:** 3-channel Mel-spectrograms.
+* **Backbones:** EfficientNet-Lite0, MobileNetV3-Small, GhostNet-100.
+* **Optimization:** Stochastic Gradient Descent with Cross-Entropy Loss.
 
-Audio to Visual: Raw sound is converted into a Mel-spectrogram (a "picture" of the sound's frequency).
+## 📊 Evaluation
+The ensemble model produces the following results across 13 categories (Ambulance, FireTruck, PoliceCar, CarHorns, and Noise):
 
-AI Analysis: Three lightweight models (EfficientNet-Lite0, MobileNetV3, and GhostNet) analyze the spectrogram simultaneously.
+| Metric | Score |
+| :--- | :--- |
+| **Accuracy** | 89% |
+| **Classes** | 13 |
+| **Baseline** | 7.7% |
 
-Smart Voting: The system averages their predictions to give a final result. This "Soft-Voting" method is why the accuracy is so high (89%) compared to a random guess (7.7%).
+## 🛠️ Current Roadmap
+- [x] Initial Model Training & Ensemble Logic
+- [x] Achievement of 88% Accuracy benchmark
+- [ ] Transitioning to **ONNX Runtime** for hardware acceleration
+- [ ] Deployment on **Raspberry Pi 5** with real-time audio input
 
-Sound Categories
-The model recognizes 13 distinct event-direction pairs:
-
-Ambulance: Left, Middle, Right
-
-Fire Truck: Left, Middle, Right
-
-Police Car: Left, Middle, Right
-
-Car Horns: Left, Middle, Right
-
-Background Noise (to prevent false alarms)
-
-Tech Stack
-Language: Python
-
-Deep Learning: PyTorch, TIMM (PyTorch Image Models)
-
-Processing: NumPy, Scikit-learn, Pillow
-
-Hardware: Raspberry Pi 5
-
-Roadmap
-[x] Train 3-model ensemble on 13-class dataset.
-
-[x] Achieve 89% validation accuracy benchmark.
-
-[ ] Optimize for ONNX Runtime to reduce latency on the Pi 5.
-
-[ ] Integrate haptic feedback (vibration) for directional alerts.
+## 📄 Attributions
+This project utilizes a standardized spatial-acoustic dataset for training and validation of the Direction-of-Arrival (DoA) logic.
