@@ -23,7 +23,7 @@ The ensemble model produces the following results across 13 categories (Ambulanc
 | **Accuracy** | 89% |
 | **Classes** | 13 |
 | **Baseline** | 7.7% |
-
+![Model Classification Report](classification_report.jpg)
 ## 🛠️ Current Roadmap
 - [x] Initial Model Training & Ensemble Logic
 - [x] Achievement of 88% Accuracy benchmark
